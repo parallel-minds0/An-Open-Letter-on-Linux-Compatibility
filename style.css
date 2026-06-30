@@ -1,0 +1,26 @@
+@font-face {
+    font-family: Montserrat;
+    src: url(fonts/Montserrat/static/Montserrat-ExtraBold.ttf);
+}
+
+@font-face {
+    font-family: Inter;
+    src: url(fonts/Inter/static/Inter_28pt-Regular.ttf);
+}
+
+body {
+    margin: auto;
+}
+
+h1 {
+    font-family: Montserrat;
+}
+
+p {
+    font-family: Inter;
+}
+
+#content {
+    margin: auto;
+    width: 700px;
+}

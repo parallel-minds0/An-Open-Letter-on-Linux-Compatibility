@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>
+            An Open Letter on Linux Compatibility (and Why Flatpak Isn't the
+            Fix)
+        </title>
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="description" content="" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="icon" href="favicon.png" />
+    </head>
+    <body>
+        <div id="content" aria-label="content">
+            <header>
+                <h1>
+                    An Open Letter on Linux Compatibility (and Why Flatpak Isn't
+                    the Fix)
+                </h1>
+            </header>
+
+            <article>
+                <p>
+                    As a lot of you already know, backwards compatibility has
+                    never really been the strong suit of Linux or the BSDs. Part
+                    of this is cultural: there's a mismatch in expectations
+                    around dependency and package management, and userspace
+                    developers don't always appreciate that "old" code is often
+                    still doing real work. People break it without realizing how
+                    much depends on it, and compatibility suffers as a result.
+                </p>
+
+                <p>So here's the problem, stated plainly:</p>
+
+                <p>
+                    Dependency management and compatibility haven't been solved
+                    elegantly yet. There have been interesting attempts:
+                    Canonical's Snaps, Red Hat's Flatpaks, and Simon Peter's
+                    AppImage all come to mind, but it feels like app
+                    distribution and compatibility are actually two separate
+                    problems that keep getting bundled together. The attempts
+                    above end up overreaching outside their actual problem
+                    domain. App distribution shouldn't be on the hook for
+                    handling userspace components or compatibility with
+                    userspace, and it shouldn't be on the hook for security
+                    either. Those are genuinely separate concerns and should be
+                    treated as such.
+                </p>
+
+                <p>
+                    To be clear, I'm not trying to single out Flatpak as the
+                    villain here. What it's doing is a natural response to
+                    trying to solve a fragmented ecosystem all at once. It's a
+                    holistic fix for a problem that's anything but holistic.
+                </p>
+
+                <p>
+                    The plan, then, is to rethink this from the ground up.
+                    Instead of meeting the fragmentation halfway, which is
+                    essentially what Flatpak does, the focus should be on
+                    building a stable, backwards-compatible userspace first, as
+                    the actual foundation everything else builds on. Package
+                    management or app distribution and security would be split
+                    off as two separate concerns, each handled by its own
+                    subsystem, rather than crammed into the same tool.
+                </p>
+
+                <p>
+                    Basically: bring the Windows NT compatibility promise to
+                    Linux.
+                </p>
+            </article>
+        </div>
+    </body>
+</html>
