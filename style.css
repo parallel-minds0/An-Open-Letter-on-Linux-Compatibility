@@ -1,26 +1,36 @@
 @font-face {
-    font-family: Montserrat;
-    src: url(fonts/Montserrat/static/Montserrat-ExtraBold.ttf);
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat/static/Montserrat-ExtraBold.ttf")
+        format("truetype");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-    font-family: Inter;
-    src: url(fonts/Inter/static/Inter_28pt-Regular.ttf);
+    font-family: "Inter";
+    src: url("fonts/Inter/static/Inter_28pt-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
 
 body {
-    margin: auto;
+    margin: 0;
+    padding: 1.5rem;
 }
 
 h1 {
-    font-family: Montserrat;
+    font-family: "Montserrat", sans-serif;
 }
 
 p {
-    font-family: Inter;
+    font-family: "Inter", sans-serif;
+    line-height: 1.6;
 }
 
 #content {
-    margin: auto;
-    width: 700px;
+    margin: 0 auto;
+    max-width: 700px;
+    width: 100%;
 }
