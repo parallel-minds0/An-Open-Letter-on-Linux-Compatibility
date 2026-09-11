@@ -70,13 +70,76 @@
                         Package management or app distribution and security
                         would be split off as two separate concerns, each
                         handled by its own subsystem, rather than crammed into
-                        the same tool.
+                        the same tool. Naturally, this raises immediate concerns,
+                        particularly regarding the risk of centralization. These
+                        concerns are addressed in the <span class="highlight">Implementation Detail</span>
+                        section of this page.
                     </p>
 
                     <p>
                         Basically: bring the Windows NT compatibility promise to
                         Linux.
                     </p>
+
+                    <h2>Implementation Detail</h2>
+
+                    <p>
+                        The compatibility layer is deliberately abstracted from
+                        the userspace beneath it. The userspace is intended to
+                        remain stable in its own right, even when software interfaces
+                        with it directly; the abstract API exists to reduce applications’
+                        dependence on particular userspace components and implementation
+                        details. It is concerned with the operating-system facilities
+                        that applications should be able to rely upon initialization,
+                        service management, application lifecycle, permissions, desktop
+                        integration, and similar functionality not with replacing every
+                        library commonly found on a Linux system. It does not attempt
+                        to impose project-specific versions of OpenGL, Vulkan, traditional
+                        C-style sockets, or every other established interface.
+                        Those technologies may remain available where they are appropriate,
+                        while applications that want a more portable and durable target
+                        can use the higher-level API. The purpose of this layer is
+                        therefore not to make the userspace irrelevant, but to make
+                        dependence upon any one part of it less necessary.
+                    </p>
+
+                    <p>
+                        Applications will primarily be distributed as application packages,
+                        but these packages are not required to be completely self-contained
+                        in the manner of an AppImage. Because the operating system provides
+                        a stable userspace and a stable application-facing API, an
+                        application does not need to bundle everything merely to protect
+                        itself from arbitrary changes in the host environment. The
+                        package may contain libraries and dependencies that are not part
+                        of the operating-system contract, including application-specific
+                        runtimes or, where necessary, its own C library (The project’s
+                        own C library is intended to be small, simple, and backward-compatible,
+                        but applications are not required to use it if another
+                        implementation better suits their needs). Publishers may
+                        bundle a more complete userspace when there is a specific
+                        reason to do so, just as with an AppImage, but this is an
+                        option rather than the normal distribution model. The aim
+                        is to avoid both extremes: applications should not depend
+                        blindly on an unstable host system, but neither should
+                        every application need to duplicate the entire operating system.
+                    </p>
+
+                    <p>
+                        The project is not intended to become a centralized source for Linux
+                        or a mandatory standard imposed upon existing distributions. It is an
+                        independent system and reference implementation whose interfaces and
+                        design can be adopted voluntarily. If the approach proves useful,
+                        other projects should be able to implement compatible systems or
+                        create direct derivatives without relying upon one central organization
+                        or vendor-controlled source. A successful implementation would
+                        earn its place by providing a useful stable userspace, a durable
+                        abstract API, reliable application distribution, and a coherent
+                        security model. Other implementations could then preserve the
+                        same application-facing contracts while differing internally.
+                        Compatibility would emerge from usefulness and adoption,
+                        rather than being forced upon the wider Linux ecosystem.
+                    </p>
+
                 </article>
             </main>
             <footer>

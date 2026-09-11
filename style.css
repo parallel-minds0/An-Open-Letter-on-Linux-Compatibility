@@ -8,6 +8,15 @@
 }
 
 @font-face {
+    font-family: "Montserrat-Italic";
+    src: url("fonts/Montserrat/static/Montserrat-Italic.ttf")
+        format("truetype");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: "Inter";
     src: url("fonts/Inter/static/Inter_28pt-Regular.ttf") format("truetype");
     font-weight: 400;
@@ -24,9 +33,17 @@ h1 {
     font-family: "Montserrat", sans-serif;
 }
 
+h2 {
+    font-family: "Montserrat", sans-serif;
+}
+
 p {
     font-family: "Inter", sans-serif;
     line-height: 1.6;
+}
+
+.highlight {
+    font-family: "Montserrat-Italic", sans-serif;
 }
 
 main {
