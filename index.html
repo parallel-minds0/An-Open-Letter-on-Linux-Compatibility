@@ -125,6 +125,60 @@
                     </p>
 
                     <p>
+                        These packages may contain more than a single executable.
+                        Applications can be nested within one another, allowing a
+                        package to include supporting applications, tools, or
+                        components without requiring each part to be distributed
+                        independently. A Lisp-based definition and configuration
+                        layer will describe the package’s contents, relationships,
+                        metadata, dependencies, configuration, and required behavior.
+                        The same language will also serve as the principal
+                        configuration and systems language for the wider operating
+                        system, allowing the entire system including installed
+                        applications, services, permissions, system settings,
+                        and other state to be described as a reproducible configuration.
+                        Rather than applying a sequence of manual changes,
+                        the system can evaluate that configuration to produce a
+                        complete declared state, allowing environments to be
+                        recreated, compared, versioned, and rolled back.
+                        In this way, application packages and system configuration
+                        can share a common, inspectable means of describing
+                        composition and behavior, while still remaining separate
+                        from the stable operating-system API itself.
+                        The language is not intended to make every implementation
+                        detail part of the compatibility promise; rather,
+                        it provides a flexible mechanism through which applications,
+                        packages, and system components can be composed and entire
+                        system environments can be reproduced.
+                    </p>
+
+                    <p>
+                        These packages will be distributed through a dual system.
+                        They may be installed directly from downloadable or offline
+                        sources, or they may be installed from repositories selected
+                        by the user. A synchronization system is also intended to
+                        allow packages installed from non-repository sources to be
+                        synchronized with a repository, and packages obtained from a
+                        repository to be detached, cloned, and used independently.
+                        In either case, the package may later be synchronized with
+                        its original or selected repository when necessary.
+                        The precise verification method used to establish legitimacy
+                        is outside the scope of this article; the important point is
+                        that repository-based and standalone distribution are not mutually
+                        exclusive states.
+                    </p>
+
+                    <p>
+                        This gives the system flexibility without sacrificing compatibility.
+                        Applications can be obtained through repositories when convenient,
+                        deployed independently when required, and moved between those forms
+                        without being permanently tied to a single distribution channel.
+                        Combined with the stable userspace and application-facing API, this
+                        provides a distribution model that is both highly compatible and
+                        adaptable to online, offline, centralized, and independent use cases.
+                    </p>
+
+                    <p>
                         The project is not intended to become a centralized source for Linux
                         or a mandatory standard imposed upon existing distributions. It is an
                         independent system and reference implementation whose interfaces and
