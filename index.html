@@ -195,18 +195,1222 @@
                     </p>
 
                 </article>
+
+                <article id="qna-article">
+                    <h2>Q&A</h2>
+
+                    <div>
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-1">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>What problem is this project actually trying to solve?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-1">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    The project is intended to address three related problems:
+                                </p>
+
+                                <p>
+                                    1. The Linux userspace does not provide sufficiently strong,
+                                    long-term compatibility guarantees for applications.
+                                </p>
+
+                                <p>
+                                    2. Application packaging, system compatibility, and security
+                                    are often combined into large and complicated systems.
+                                </p>
+
+                                <p>
+                                    3. Linux distributions offer a fragmented target for developers,
+                                    making it difficult to build software that remains usable across different systems for many years.
+                                </p>
+
+                                <p>
+                                    The goal is not merely to create another package format.
+                                    It is to create an open platform with a stable userspace,
+                                    a durable application-facing API, a simpler application
+                                    distribution model, and clearly separated responsibilities
+                                    between the operating system, application publishers,
+                                    repositories, and security infrastructure.
+                                </p>
+
+                                <p>
+                                    In the article I describe the project as an attempt
+                                    to bring a Windows-NT-like compatibility promise to an open platform:
+                                    applications should be able to depend on a stable foundation
+                                    for (ideally) decades rather than merely on the compatibility
+                                    practices of individual libraries or distributions.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-2">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Is this project about the Linux kernel?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-2">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    No. The criticism is not primarily directed at
+                                    the Linux kernel. The kernel has maintained
+                                    strong userspace compatibility for a long time.
+                                </p>
+
+                                <p>
+                                    The concern is the broader userspace environment:
+                                    system services, libraries, initialization,
+                                    application lifecycle, permissions, desktop
+                                    integration, and other interfaces that applications
+                                    depend upon. A stable kernel alone does not guarantee
+                                    that applications will continue working across changes
+                                    to the rest of the operating system.
+                                </p>
+
+                                <p>
+                                    The proposed compatibility layer is therefore intended
+                                    to sit above the kernel and provide a durable
+                                    application-facing contract.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-3">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Doesn't Linux already have backward compatibility?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-3">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Linux has important compatibility guarantees,
+                                    but they are not sufficient for the broader
+                                    goal being proposed.
+                                </p>
+
+                                <p>
+                                    The kernel provides strong compatibility for
+                                    its system-call interface. Many individual
+                                    libraries also maintain compatibility, and
+                                    applications can sometimes preserve old dependencies
+                                    indefinitely. However, this does not automatically
+                                    create a coherent, stable application platform across
+                                    distributions.
+                                </p>
+
+                                <p>
+                                    The problem is not that every Linux component breaks
+                                    compatibility constantly. The problem is that Linux
+                                    does not offer a single, sufficiently strong contract
+                                    covering the complete environment an application relies
+                                    upon. Compatibility often depends on:
+                                </p>
+
+                                <ul>
+                                    <li>Which distribution is being used</li>
+                                    <li>Which versions of libraries are available</li>
+                                    <li>How system services are implemented</li>
+                                    <li>Which assumptions an application makes about the host system</li>
+                                    <li>Whether a library considers an old interface officially supported</li>
+                                    <li>Whether a distribution continues shipping a required component</li>
+                                </ul>
+
+                                <p>
+                                    The proposed system would establish a more deliberate
+                                    and long-lasting contract instead of relying on compatibility
+                                    emerging inconsistently from many independent projects.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-4">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>What specific compatibility failures are you referring to?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-4">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    The concern includes cases where changes to userspace
+                                    components break older software, including changes
+                                    associated with system infrastructure and libraries
+                                    such as glibc.
+                                </p>
+
+
+                                <p>Exhibit A https://x.com/Plagman2/status/1559683905904463873</p>
+
+                                <p>
+                                    And if you examine the contributors at the userspace
+                                    level, you’ll see for yourself how many are breaking
+                                    clearly significant structure.
+                                </p>
+
+                                <p>
+                                    The important point is not that every such case represents
+                                    a conventional public API break. Software can break when
+                                    it relies on behavior, symbols, internals, or compatibility
+                                    details that maintainers no longer consider worth preserving.
+                                    From the perspective of the affected user, however, the result
+                                    is the same: software that previously worked no longer works.
+                                </p>
+
+                                <p>
+                                    A ten-year-old line of code may still be performing essential work.
+                                    The proposed platform would adopt a stronger standard: if an interface
+                                    has been made available to applications, it should be preserved for as
+                                    long as reasonably possible, even if maintainers consider the old use
+                                    case unusual, deprecated, or inconvenient.
+                                </p>
+
+                                <p>
+                                    This does not eliminate human error. It reduces the number of situations
+                                    in which ordinary maintenance decisions can unexpectedly invalidate
+                                    older applications.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-5">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Isn’t this just a new compatibility layer?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-5">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    It includes a compatibility layer, but that description
+                                    is incomplete.
+                                </p>
+
+                                <p>
+                                    The proposed layer is not intended to replace every Linux
+                                    library or emulate an entire foreign operating system.
+                                    It would define stable operating-system facilities that
+                                    applications can rely upon, including areas such as:
+                                </p>
+
+                                <ul>
+                                    <li>Initialization</li>
+                                    <li>Service management</li>
+                                    <li>Application lifecycle</li>
+                                    <li>Permissions</li>
+                                    <li>Desktop integration</li>
+                                    <li>Other core operating-system behavior</li>
+                                </ul>
+
+                                <p>
+                                    Applications would still be able to use established
+                                    interfaces such as OpenGL, Vulkan, and traditional
+                                    sockets where appropriate. The purpose is to reduce
+                                    dependence on unstable or distribution-specific
+                                    implementation details, not to make the rest of the
+                                    userspace irrelevant.
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-6">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Why not simply use Flatpak?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-6">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Flatpak is useful, and the argument is not that Flatpak
+                                    has no value. It provides a practical application
+                                    distribution mechanism, sandboxing, runtimes,
+                                    and a common target for developers.
+                                </p>
+
+                                <p>
+                                    The concern is that Flatpak addresses too many different
+                                    problems at once. A Flatpak-based application generally
+                                    depends on an ecosystem containing:
+                                </p>
+
+                                <ul>
+                                    <li>The Flatpak subsystem</li>
+                                    <li>Runtimes</li>
+                                    <li>Sandboxing and permission mechanisms</li>
+                                    <li>Repository metadata</li>
+                                    <li>Update infrastructure</li>
+                                    <li>Security maintenance</li>
+                                    <li>Tooling and integration with the host operating system</li>
+                                </ul>
+
+                                <p>
+                                    This makes the application portable within the Flatpak
+                                    ecosystem, but the problem it introduces is dependency
+                                    on an overly-complex, online subsytem.
+                                </p>
+
+                                <p>
+                                    The proposed approach separates these responsibilities.
+                                    And it reduces complexity, no need for an over-engineered
+                                    subsystem running on your stack. The operating system
+                                    maintains a stable userspace and application-facing API.
+                                    The application package carries dependencies that are not
+                                    part of that contract. Security is treated as a separate
+                                    subsystem, and application distribution can work either
+                                    through repositories or independently, reducing online
+                                    dependence.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-7">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Isn’t Flatpak’s complexity justified by its organizational backing?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-7">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Organizational backing is a real strength of Flatpak and Snap. A
+                                    project with substantial resources can maintain tooling,
+                                    infrastructure, repositories, runtimes, and security updates.
+                                </p>
+
+                                <p>
+                                    However, that strength also reflects the amount of
+                                    infrastructure the system requires. The question is not whether
+                                    maintenance is necessary; everything requires maintenance. The
+                                    question is how much must be maintained and where the
+                                    responsibility belongs.
+                                </p>
+
+                                <p>
+                                    The proposed platform would try to keep the package format and
+                                    compatibility infrastructure smaller. A relatively small
+                                    independent organization, perhaps a handful of committed
+                                    maintainers, could maintain the format, tooling, compatibility
+                                    tests, and reference implementation. The operating-system
+                                    maintainers would maintain the stable userspace, while
+                                    application publishers would maintain their applications and
+                                    bundled dependencies.
+                                </p>
+
+                                <p>
+                                    This is not a guarantee that the project will succeed. It is a
+                                    claim that the maintenance burden can be made more limited and
+                                    clearly divided.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-8">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Who maintains the stable userspace?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-8">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    The operating system or distribution implementing the platform
+                                    would maintain it.
+                                </p>
+
+                                <p>
+                                    That maintenance cost cannot be eliminated. The difference is
+                                    that the stable userspace would be the central responsibility of
+                                    the operating system rather than something reconstructed
+                                    indirectly through every application runtime and packaging
+                                    framework.
+                                </p>
+
+                                <p>
+                                    The platform would also need:
+                                </p>
+
+                                <ul>
+                                    <li>A compatibility specification</li>
+                                    <li>Automated compatibility testing</li>
+                                    <li>A policy for deprecation</li>
+                                    <li>Long-term support procedures</li>
+                                    <li>Documentation for application developers</li>
+                                    <li>A reference implementation</li>
+                                    <li>A process for reviewing changes that could break applications</li>
+                                </ul>
+
+                                <p>
+                                    The project is not claiming that stability happens
+                                    automatically. It is proposing that stability should be an
+                                    explicit design objective and institutional responsibility.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-9">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>What happens if nobody maintains the platform?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-9">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Then it can fail, just like any other project.
+                                </p>
+
+                                <p>
+                                    The proposal does not provide a magical guarantee against
+                                    abandonment. Its intended advantage is that the system should be
+                                    easier for a small group to understand, maintain, fork, and
+                                    replace than a large stack combining packaging, runtimes,
+                                    sandboxing, repositories, permissions, and updates.
+                                </p>
+
+                                <p>
+                                    The platform should also avoid making applications permanently
+                                    dependent on one central organization. Packages should be usable
+                                    offline, transferable, archivable, and capable of being detached
+                                    from one repository and synchronized with another. Compatible
+                                    implementations should be able to preserve the
+                                    application-facing contracts even if the original organization
+                                    disappears.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-10">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>What if distributions refuse to adopt it?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-10">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Adoption is not guaranteed.
+                                </p>
+
+                                <p>
+                                    The project is not intended to force existing Linux
+                                    distributions to change. It would begin as an independent system
+                                    and reference implementation. Other projects could adopt its
+                                    interfaces, create compatible implementations, or build
+                                    derivatives voluntarily.
+                                </p>
+
+                                <p>
+                                    The expectation is that adoption would come from demonstrated
+                                    usefulness: a stable userspace, durable application
+                                    compatibility, a convenient distribution model, and a more
+                                    coherent user experience. That is a bet, not a certainty.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-11">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Isn’t this another example of the “standards” problem?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-11">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    The project would introduce another platform, so the criticism
+                                    is valid as far as it goes.
+                                </p>
+
+                                <p>
+                                    The distinction is that this is not intended to be merely
+                                    another optional package format competing for attention inside
+                                    ordinary Linux distributions. It is a new open platform with its
+                                    own architecture and userspace contract.
+                                </p>
+
+                                <p>
+                                    The goal is not to make every existing distribution support the
+                                    platform immediately. The goal is to create a system whose
+                                    internal design is coherent enough that users and developers
+                                    choose it because it offers something existing systems do not.
+                                </p>
+
+                                <p>
+                                    That still creates a network-effect risk. The project must
+                                    attract users, developers, maintainers, and applications. The
+                                    proposal does not remove that risk; it accepts it in exchange
+                                    for pursuing a cleaner foundation.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-12">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Why not use Debian as the base?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-12">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Using Debian would make sense if the project only needed a
+                                    stable distribution base and conventional Linux compatibility.
+                                </p>
+
+                                <p>
+                                    That is not the plan. The proposed architecture depends on a
+                                    custom userspace foundation and a different separation between
+                                    the operating system, application packages, and security
+                                    infrastructure. Building on an existing distribution would
+                                    inherit many of the assumptions the project is trying to change.
+                                </p>
+
+                                <p>
+                                    Debian is a valuable and comparatively stable project, but it is
+                                    still part of the wider GNU/Linux ecosystem whose userspace
+                                    contracts are not strong enough for the proposed long-term
+                                    compatibility goal. The project is therefore not simply trying
+                                    to create a better Debian derivative.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-13">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Are you deliberately creating an incompatible system?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-13">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Yes, at the conventional Linux userspace level, but not
+                                    arbitrarily.
+                                </p>
+
+                                <p>
+                                    The platform is not intended to promise compatibility with every
+                                    existing Linux distribution. It is intended to provide a new,
+                                    more stable application target.
+                                </p>
+
+                                <p>
+                                    That means there would be a transition cost. Existing Linux
+                                    applications might need to be ported, repackaged, or adapted.
+                                    The justification is that compatibility with an unstable or
+                                    inconsistent foundation is not enough. A new platform may be
+                                    worthwhile if it offers a stronger long-term contract and a
+                                    simpler development model.
+                                </p>
+
+                                <p>
+                                    The proposal aims for compatibility within its own stable
+                                    platform (of which, many derivatives can be made of), not
+                                    universal binary compatibility with every existing generic Linux
+                                    system or stack.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-14">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Isn’t Android already an example of this?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-14">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Technically, Android is a Linux distribution because it uses the
+                                    Linux kernel. However, it is commonly treated as a distinct
+                                    operating-system platform because it has its own userspace,
+                                    APIs, application model, and hardware assumptions.
+                                </p>
+
+                                <p>
+                                    That distinction matters here. The project is not intended to be
+                                    another conventional distribution built from the standard
+                                    GNU/Linux stack. It is intended to be an independent open
+                                    platform that uses Linux where useful but defines its own
+                                    application-facing foundation. Where Android uses a virtual
+                                    machine to define its foundation, this project will instead use
+                                    a typical self-sourced userspace stack with a C-style API
+                                    interface.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-15">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>What does “compatibility” mean in this proposal?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-15">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Compatibility has two meanings.
+                                </p>
+
+                                <p>
+                                    For users, it means that the applications they want are
+                                    available and continue to run on the platform.
+                                </p>
+
+                                <p>
+                                    For developers, it means that supporting the platform should not
+                                    require repeatedly changing how applications are built,
+                                    compiled, packaged, or maintained.
+                                </p>
+
+                                <p>
+                                    The proposed platform therefore needs to provide both:
+                                </p>
+
+                                <ul>
+                                    <li>A stable environment in which applications continue to run</li>
+                                    <li>A predictable development and packaging target that developers can support without maintaining a separate solution for every distribution</li>
+                                </ul>
+
+                                <p>
+                                    Simply having a stable API is not enough if no applications are
+                                    available. Conversely, having many packages is not enough if
+                                    they depend on a constantly changing environment.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-16">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>How is this different from AppImage?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-16">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    The proposed package format is AppImage-like, but it is not
+                                    necessarily the AppImage format itself.
+                                </p>
+
+                                <p>
+                                    It is inspired by some of AppImage’s strengths, particularly its
+                                    ability to distribute applications independently of a central
+                                    repository. However, the package format would be designed as
+                                    part of a broader platform with a stable userspace and
+                                    application-facing API.
+                                </p>
+
+                                <p>
+                                    A conventional AppImage may need to bundle a large number of
+                                    libraries and may still depend on assumptions about the host
+                                    system. The proposed platform would provide a stable userspace
+                                    and application-facing API so that applications would not need
+                                    to bundle the entire operating system merely to survive ordinary
+                                    host changes.
+                                </p>
+
+                                <p>
+                                    Applications could include libraries, application-specific
+                                    runtimes, or even their own C library when necessary. Complete
+                                    self-containment would be optional rather than mandatory.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-17">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Doesn’t an AppImage-like package still require dependencies?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-17">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Yes. An AppImage-like package does not magically eliminate
+                                    dependencies.
+                                </p>
+
+                                <p>
+                                    That is why the proposal is not simply “use AppImage and stop
+                                    there.” The package format would be combined with a platform
+                                    whose userspace and application-facing APIs are stable by
+                                    design.
+                                </p>
+
+                                <p>
+                                    System-level dependencies would be handled by the platform’s
+                                    userspace contract. Dependencies outside that contract could be
+                                    included in the application package. This is intended to avoid
+                                    both extremes:
+                                </p>
+
+                                <ul>
+                                    <li>Blind dependence on an unstable host system</li>
+                                    <li>Requiring every application to duplicate the entire operating system</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-18">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>How would packages be distributed?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-18">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Packages could be obtained in several ways:
+                                </p>
+
+                                <ul>
+                                    <li>Downloaded directly</li>
+                                    <li>Installed from an offline source</li>
+                                    <li>Installed from a repository selected by the user</li>
+                                    <li>Copied or archived for later use</li>
+                                    <li>Synchronized with a repository after initially being installed independently</li>
+                                    <li>Detached from a repository and used independently</li>
+                                </ul>
+
+                                <p>
+                                    The repository would therefore be a convenience rather than an
+                                    unavoidable dependency. Repository-based and standalone
+                                    distribution would be compatible states rather than mutually
+                                    exclusive models.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-19">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Would this require a centralized app store?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-19">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    No.
+                                </p>
+
+                                <p>
+                                    Repositories could exist, but the platform would not require one
+                                    central repository or one vendor-controlled source. Users and
+                                    organizations could select repositories, deploy packages
+                                    directly, or maintain private distribution channels.
+                                </p>
+
+                                <p>
+                                    The design goal is to support centralized and decentralized
+                                    distribution simultaneously:
+                                </p>
+
+                                <ul>
+                                    <li>Centralized repositories for convenience</li>
+                                    <li>Independent downloads for flexibility</li>
+                                    <li>Offline installation for reliability</li>
+                                    <li>Private repositories for organizations</li>
+                                    <li>Portable packages for archiving and migration</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-20">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>What about security?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-20">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Security would be treated as a separate concern from application
+                                    distribution.
+                                </p>
+
+                                <p>
+                                    That does not mean packages would be trusted automatically or
+                                    that security would be ignored. It means that application
+                                    packaging should not be responsible for solving every security
+                                    problem at the same time.
+                                </p>
+
+                                <p>
+                                    The eventual platform would need a clear verification and trust
+                                    model for package authenticity, updates, permissions,
+                                    sandboxing, and repository integrity. The article intentionally
+                                    does not finalize the precise verification mechanism. Its main
+                                    claim is that security should be designed as an independent
+                                    subsystem rather than being inseparably coupled to the
+                                    application package format.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-21">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Why not use Nix?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-21">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Nix is not being rejected as a technical model. In fact, the
+                                    project already plans to use a unified language with several
+                                    properties that make Nix powerful.
+                                </p>
+
+                                <p>
+                                    The system will use a Lisp-derived language throughout the
+                                    platform, including:
+                                </p>
+
+                                <ul>
+                                    <li>Package configurations</li>
+                                    <li>System configurations</li>
+                                    <li>Application definitions</li>
+                                    <li>Service descriptions</li>
+                                    <li>Build and deployment declarations</li>
+                                    <li>The interactive terminal shell</li>
+                                </ul>
+
+                                <p>
+                                    This language is intended to behave consistently across those
+                                    contexts, in much the same way that Nix provides a unified
+                                    declarative model for package and system configuration. The
+                                    difference is that the project will use a flavor of Lisp rather
+                                    than the Nix expression language.
+                                </p>
+
+                                <p>
+                                    The objective is to preserve the benefits of a unified
+                                    configuration and package language while integrating it more
+                                    deeply into the operating system and user environment. The same
+                                    language should not only describe packages but also function as
+                                    a practical interactive shell.
+                                </p>
+
+                                <p>
+                                    Therefore, the project is not proposing a simpler model by
+                                    abandoning the expressive and unified aspects associated with
+                                    Nix. It is proposing to use those ideas within a different
+                                    platform architecture, with a stable userspace and an
+                                    AppImage-like application distribution model.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-22">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Is this really a technological problem, or an organizational one?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-22">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    It is both.
+                                </p>
+
+                                <p>
+                                    The technology must provide a stable userspace, a durable API,
+                                    workable packaging, compatibility testing, and a practical
+                                    distribution system. But none of those will matter without
+                                    maintainers, developers, users, documentation, funding, and
+                                    adoption.
+                                </p>
+
+                                <p>
+                                    The project is therefore not claiming that a technically elegant
+                                    design automatically wins. Politics, marketing, resources, and
+                                    network effects matter in open source as well.
+                                </p>
+
+                                <p>
+                                    The article is an attempt to find people interested in taking
+                                    that risk and helping establish the platform. It is not an
+                                    assertion that adoption will happen solely because the design is
+                                    theoretically better.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-23">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Doesn’t merit alone fail to determine adoption?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-23">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Yes. Merit alone is not enough.
+                                </p>
+
+                                <p>
+                                    Politics, marketing, developer incentives, existing user bases,
+                                    funding, and institutional support all influence adoption.
+                                    AppImage shows that a technically simple format can gain
+                                    adoption when developers can use it independently, but a stable
+                                    userspace is a much deeper commitment and cannot be adopted as
+                                    effortlessly.
+                                </p>
+
+                                <p>
+                                    The project would therefore need more than a good design. It
+                                    would need:
+                                </p>
+
+                                <ul>
+                                    <li>A working reference implementation</li>
+                                    <li>Developer tooling</li>
+                                    <li>Documentation</li>
+                                    <li>Compatibility tests</li>
+                                    <li>Early applications</li>
+                                    <li>A compelling user experience</li>
+                                    <li>A community of maintainers</li>
+                                    <li>A sustainable funding model</li>
+                                    <li>A strategy for attracting users and developers at the same time</li>
+                                </ul>
+
+                                <p>
+                                    The claim is not that merit guarantees success. The claim is
+                                    that a useful implementation can provide a foundation around
+                                    which those other factors can develop.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-24">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Doesn’t the project suffer from the “no users, no applications; no applications, no users” problem?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-24">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Yes. This is one of the project’s central risks.
+                                </p>
+
+                                <p>
+                                    The project would need to break that cycle through some
+                                    combination of:
+                                </p>
+
+                                <ul>
+                                    <li>A focused initial use case</li>
+                                    <li>Early support from developers who share the compatibility goal</li>
+                                    <li>Compatibility tooling that makes porting straightforward</li>
+                                    <li>High-quality development tools</li>
+                                    <li>A small number of compelling applications</li>
+                                    <li>Support from hardware vendors or platform projects</li>
+                                    <li>A clear advantage for a particular audience, such as gaming or specialized workstations</li>
+                                </ul>
+
+                                <p>
+                                    The proposal does not make the network effect disappear. It
+                                    argues that the current Linux ecosystem’s fragmentation is
+                                    already imposing costs, and that a new platform may be worth
+                                    pursuing if it offers a sufficiently better foundation.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-25">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Why not first convince existing distributions to adopt the same userspace?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-25">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    That would be one possible route, but it may be difficult
+                                    because distributions have different goals, design philosophies,
+                                    release models, init systems, package systems, and institutional
+                                    interests.
+                                </p>
+
+                                <p>
+                                    The proposed platform instead starts with a coherent
+                                    implementation. Other projects could later adopt compatible
+                                    interfaces or borrow parts of the design if the approach proves
+                                    useful.
+                                </p>
+
+                                <p>
+                                    This does not require every distribution to move in lockstep. It
+                                    requires one platform to demonstrate that a stable userspace and
+                                    clearer application contract are practical.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-26">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Is the project asking existing distributions to change?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-26">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    No.
+                                </p>
+
+                                <p>
+                                    The project is not asking Debian, Fedora, Arch, Ubuntu, or other
+                                    distributions to immediately abandon their current systems. It
+                                    is proposing an independent platform that people could
+                                    voluntarily adopt, implement, fork, or extend.
+                                </p>
+
+                                <p>
+                                    Existing distributions could remain exactly as they are. The
+                                    project’s success would depend on whether users and developers
+                                    found the alternative valuable enough to support.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-27">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Is the article a complete technical blueprint?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-27">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    No. It is an advocacy paper and an invitation to collaborate,
+                                    not a finished implementation specification.
+                                </p>
+
+                                <p>
+                                    The purpose of the article is to describe the problem, outline
+                                    the intended architecture, and attract people interested in
+                                    developing the project. It does not yet specify every ABI rule,
+                                    compatibility policy, package-verification mechanism, security
+                                    boundary, toolchain detail, or migration path.
+                                </p>
+
+                                <p>
+                                    Those details would need to be developed through technical
+                                    design documents, prototypes, testing, and implementation work.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-28">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>What does the proposed userspace include?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-28">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    The userspace would provide the stable foundation that
+                                    applications are allowed to rely upon. This would include
+                                    operating-system facilities such as:
+                                </p>
+
+                                <ul>
+                                    <li>System initialization</li>
+                                    <li>Service management</li>
+                                    <li>Application lifecycle management</li>
+                                    <li>Permissions</li>
+                                    <li>Desktop integration</li>
+                                    <li>Stable application-facing APIs</li>
+                                    <li>Other platform-level behavior</li>
+                                </ul>
+
+                                <p>
+                                    It would not necessarily replace every existing Linux interface
+                                    or dictate one implementation of every graphics, networking, or
+                                    multimedia library. The aim is to stabilize the parts of the
+                                    system that applications need while allowing implementation
+                                    freedom underneath.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-29">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Would applications have to use the project’s own C library?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-29">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    No.
+                                </p>
+
+                                <p>
+                                    The project may provide a small, simple, backward-compatible C
+                                    library, but applications would not be required to use it if
+                                    another implementation better suits their needs.
+                                </p>
+
+                                <p>
+                                    Applications could bundle libraries and dependencies that fall
+                                    outside the operating-system compatibility contract. They could
+                                    also bundle a more complete userspace when there is a specific
+                                    reason to do so. The intended model is flexibility within a
+                                    stable platform, not mandatory use of one implementation.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-30">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Can packages contain multiple applications or supporting tools?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-30">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Yes.
+                                </p>
+
+                                <p>
+                                    Packages would not necessarily be limited to one executable.
+                                    They could contain supporting applications, tools, or components
+                                    and express relationships between them.
+                                </p>
+
+                                <p>
+                                    The Lisp-based definition and configuration layer is intended to
+                                    describe package contents, dependencies, metadata,
+                                    configuration, and required behavior. The same general mechanism
+                                    could describe reproducible system configurations, installed
+                                    services, permissions, and system state.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-31">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Does the project require one central organization?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-31">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    No.
+                                </p>
+
+                                <p>
+                                    The project would initially benefit from a reference
+                                    implementation and a small organization capable of maintaining
+                                    the format, tooling, and compatibility work. But the interfaces
+                                    should be open enough for other organizations or individuals to
+                                    create compatible implementations.
+                                </p>
+
+                                <p>
+                                    The intended model is closer to an open platform specification
+                                    than a permanently centralized service. Compatibility should
+                                    ultimately come from shared contracts and implementations, not
+                                    from dependence on one vendor-controlled repository.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-32">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Are you claiming this platform is guaranteed to succeed?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-32">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    No. It is a deliberate risk.
+                                </p>
+
+                                <p>
+                                    The argument is that the existing ecosystem has structural
+                                    weaknesses that are not adequately addressed by adding more
+                                    layers to the current stack. A new platform could fail because
+                                    of insufficient adoption, inadequate funding, technical
+                                    mistakes, or competition from established projects.
+                                </p>
+
+                                <p>
+                                    The project is being pursued because the potential benefit of a
+                                    stable, open, long-term application platform appears worthwhile
+                                    despite those risks.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-33">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Are you dismissing existing Linux distributions or their developers?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-33">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    No.
+                                </p>
+
+                                <p>
+                                    The criticism is directed at the structure and incentives of the
+                                    current ecosystem, not at the competence or intentions of
+                                    individual developers. Existing projects solve real problems
+                                    under difficult constraints.
+                                </p>
+
+                                <p>
+                                    The claim is that the ecosystem has not produced the level of
+                                    stable, long-term userspace compatibility being proposed.
+                                    Respecting the work of existing projects does not require
+                                    accepting their design trade-offs as sufficient for every future
+                                    use case.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-34">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>Why not just use Windows if Windows already provides the compatibility you want?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-34">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    The purpose is not merely to obtain compatibility at any cost.
+                                    The goal is to create an open platform with strong compatibility
+                                    guarantees.
+                                </p>
+
+                                <p>
+                                    Windows demonstrates that long-term application compatibility is
+                                    possible, but it does not provide the openness, inspectability,
+                                    independence, and user control that this project seeks. The
+                                    project is intended for people who want those properties without
+                                    accepting the weaker compatibility contract common in the Linux
+                                    ecosystem.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-35">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>What is the central thesis in one sentence?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-35">
+                            <div class="qna-paragraph-inner">
+                                <blockquote>
+                                    Application compatibility should be built on a deliberately
+                                    stable operating-system foundation, while application packaging,
+                                    distribution, and security should remain separate concerns.
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        <button class="qna-button" type="button" aria-expanded="true" aria-controls="qna-answer-36">
+                            <img class="arrow" src="img/arrow.svg" alt="pointer" width="20" height="20">
+                            <h3>What would success look like?</h3>
+                        </button>
+                        <div class="qna-paragraph is-open" id="qna-answer-36">
+                            <div class="qna-paragraph-inner">
+                                <p>
+                                    Success would mean that an application developer could target
+                                    the platform once and reasonably expect the application to
+                                    continue working for many years, across compatible
+                                    implementations, without rebuilding the entire application for
+                                    every distribution.
+                                </p>
+
+                                <p>
+                                    For users, success would mean that applications could be:
+                                </p>
+
+                                <ul>
+                                    <li>Installed from repositories</li>
+                                    <li>Downloaded independently</li>
+                                    <li>Used offline</li>
+                                    <li>Copied between systems</li>
+                                    <li>Archived for long-term use</li>
+                                    <li>Updated without being permanently tied to one distribution channel</li>
+                                </ul>
+
+                                <p>
+                                    For the wider ecosystem, success would mean that compatibility
+                                    comes from a clear, durable contract rather than from every
+                                    application independently defending itself against userspace
+                                    fragmentation.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </article>
             </main>
             <footer>
                 <h2>Contact Information</h2>
                 <ul>
                     <li>
-                        Email:
+                        email:
                         <a href="mailto:"
-                            >contact dot parallelminds proton me</a
+                            >contact dot parallelminds at proton me</a
                         >
                     </li>
                 </ul>
             </footer>
         </div>
+
+
+
+        <script src="ssource/main.js"></script>
     </body>
 </html>
