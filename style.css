@@ -71,6 +71,11 @@ footer li {
     width: 100%;
 }
 
+#popup {
+    background-color: #FFEA00;
+    padding: 10px;
+}
+
 #qna-article {
     margin-top: 40px;
 }
